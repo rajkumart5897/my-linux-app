@@ -1,13 +1,30 @@
 #include <gtk/gtk.h>
 
+static void on_button_clicked(GtkButton *button, gpointer user_data)
+{
+    g_print("Button clicked!\n");
+}
+
 static void activate(GtkApplication *app, gpointer user_data)
 {
     GtkWidget *window;
+    GtkWidget *button;
 
     window = gtk_application_window_new(app);
 
     gtk_window_set_title(GTK_WINDOW(window), "My First App");
     gtk_window_set_default_size(GTK_WINDOW(window), 400, 300);
+
+    button = gtk_button_new_with_label("Click Me");
+
+    gtk_window_set_child(GTK_WINDOW(window), button);
+
+    g_signal_connect(
+        button,
+        "clicked",
+        G_CALLBACK(on_button_clicked),
+        NULL
+    );
 
     gtk_window_present(GTK_WINDOW(window));
 }
@@ -23,8 +40,10 @@ int main(int argc, char **argv)
     );
 
     g_signal_connect(
-        app, "activate",
-        G_CALLBACK(activate), NULL
+        app,
+        "activate",
+        G_CALLBACK(activate),
+        NULL
     );
 
     status = g_application_run(
