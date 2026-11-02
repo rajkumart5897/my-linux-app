@@ -9,9 +9,9 @@
 # PROG = test.c
 
 # A command can be executed only if it is part of .PHONY: cmd-names
-# Otherwise Make will assume it's a file.
+# Otherwise Make will assume it's a
 
-PROG = testGtkApp
+PROG = myGtkWindow
 
 CC = gcc
 CFLAGS = `pkg-config --cflags gtk+-3.0`
